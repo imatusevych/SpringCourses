@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="
+	        http://www.springframework.org/schema/beans 
+	        http://www.springframework.org/schema/beans/spring-beans.xsd
+	        http://www.springframework.org/schema/jee
+	        http://www.springframework.org/schema/jee/spring-jee-3.0.xsd">
+	
+	
+	<bean id="user1" class="springIoC.task1.observer.xmlbaseinit.model.User">
+		<constructor-arg value="user_name_1" />
+		<constructor-arg value="user_last_name_1" />
+	</bean>
+	<bean id="user2" class="springIoC.task1.observer.xmlbaseinit.model.User">
+		<constructor-arg value="user_name_2" />
+		<constructor-arg value="user_last_name_2" />
+	</bean>
+	<bean id="user3" class="springIoC.task1.observer.xmlbaseinit.model.User">
+		<constructor-arg value="user_name_3" />
+		<constructor-arg value="user_last_name_3" />
+	</bean>
+	<bean id="userDataProvider" class="springIoC.task1.observer.xmlbaseinit.dataprovider.UserInfoProvider">
+		<constructor-arg>
+			<list>
+				<ref bean="user1" />
+				<ref bean="user2" />
+				<ref bean="user3" />
+			</list>
+		</constructor-arg>
+	</bean>
+	
+	<bean id="consoleClient" class="springIoC.task1.observer.xmlbaseinit.client.Console">
+		<constructor-arg ref="userDataProvider" />
+	</bean>
+
+</beans> 

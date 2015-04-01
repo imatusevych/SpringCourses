@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:util="http://www.springframework.org/schema/util"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/util
+        http://www.springframework.org/schema/util/spring-util.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd">
+
+	<context:property-placeholder location="classpath:app_test.properties" />
+
+	<beans profile="qa">
+		<bean id="receiver1" class="springIoC.task2.observer.xmlbased.model.Taxi">
+			<constructor-arg value="Optima_qa" />
+		</bean>
+		<bean id="receiver2" class="springIoC.task2.observer.xmlbased.model.Taxi">
+			<constructor-arg value="Troika_qa" />
+		</bean>
+	</beans>
+
+	<beans profile="dev">
+		<bean id="receiver1" class="springIoC.task2.observer.xmlbased.model.Taxi">
+			<constructor-arg value="Optima_dev" />
+		</bean>
+		<bean id="receiver2" class="springIoC.task2.observer.xmlbased.model.Taxi">
+			<constructor-arg value="Troika_dev" />
+		</bean>
+	</beans>
+
+	<beans profile="dev,qa">
+		<bean id="orderHandler"
+			class="springIoC.task2.observer.xmlbaseinit.behavior.OrderListener" />
+
+		<bean id="orderPublisher"
+			class="springIoC.task2.observer.xmlbaseinit.behavior.OrderPublisher">
+			<property name="receivers">
+				<list>
+					<ref bean="receiver1" />
+					<ref bean="receiver2" />
+				</list>
+			</property>
+		</bean>
+	</beans>
+</beans> 
